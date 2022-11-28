@@ -1,0 +1,23 @@
+@import '@styles/theme.scss';
+
+// Your style here
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: aliceblue;
+}
+
+.wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 25px;
+  height: 100%;
+  width: 100%;
+  background-color: aliceblue;
+  overflow: scroll;
+}

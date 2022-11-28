@@ -1,0 +1,17 @@
+@import '@styles/theme.scss';
+
+// Your style here
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+}
