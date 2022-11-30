@@ -21,8 +21,8 @@ export default function Column(props: IProps) {
         {(provided: any) => (
           <div
             className={s.listContainer}
-            innerRef={provided.innerRef}
             {...provided.droppable}
+            ref={provided.innerRef}
           >
             <List items={items} />
             {provided.placeholder}

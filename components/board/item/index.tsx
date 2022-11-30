@@ -30,40 +30,31 @@ export default function Item(props: IProps) {
       {(provided: any) => (
         <div
           className={s.container}
-          {...provided.draggableProps}
+          ref={provided.innerRef}
           {...provided.dragHandleProps}
-          innerRef={provided.innerRef}
+          {...provided.draggableProps}
         >
-          <Card sx={{ minWidth: 200 }}>
-            <CardActionArea>
-              <CardContent>
-                <h4 className={s.title}>{title}</h4>
-                <Typography
-                  sx={{
-                    mb: 1.5,
-                    mt: 1,
-                    fontSize: 10,
-                    opacity: 0.8,
-                    fontWeight: 300,
-                  }}
-                  color="text.secondary"
-                >
-                  {description}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: 500,
-                  }}
-                >
-                  {completedSubTasks} of {totalSubTasks} subtasks completed
-                </Typography>
-              </CardContent>
-              {/* <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions> */}
-            </CardActionArea>
-          </Card>
+          <h4 className={s.title}>{title}</h4>
+          <Typography
+            sx={{
+              mb: 1.5,
+              mt: 1,
+              fontSize: 10,
+              opacity: 0.8,
+              fontWeight: 300,
+            }}
+            color="text.secondary"
+          >
+            {description}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: 500,
+            }}
+          >
+            {completedSubTasks} of {totalSubTasks} subtasks completed
+          </Typography>
         </div>
       )}
     </Draggable>

@@ -1,7 +1,8 @@
+import dynamic from 'next/dynamic'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Board } from '@components'
 
+const Board = dynamic(() => import('@components/board'), { ssr: false })
 const Home: NextPage = () => {
   return (
     <>

@@ -1,25 +1,29 @@
-import { SubTask, Status, Task } from './data.type'
+import { IStatus, ITask } from '@interfaces'
 
-const STATUS_OPEN: Status = {
-  id: '1',
+const STATUS_OPEN: IStatus = {
+  id: '3459bfaf-fe62-4944-9ee1-748924f6d1a2',
   name: 'Open',
 }
 
-const STATUS_IN_PROGRESS: Status = {
-  id: '2',
+const STATUS_IN_PROGRESS: IStatus = {
+  id: '6c0bd5e9-9f8e-4d84-98cf-36c545adb89b',
   name: 'In Progress',
 }
 
-const STATUS_DONE: Status = {
-  id: '3',
+const STATUS_DONE: IStatus = {
+  id: 'a45f2f69-d819-48b7-8d34-6b6f71ea9b9a',
   name: 'Done',
 }
 
-export const STATUSES: Status[] = [STATUS_OPEN, STATUS_IN_PROGRESS, STATUS_DONE]
+export const STATUSES: IStatus[] = [
+  STATUS_OPEN,
+  STATUS_IN_PROGRESS,
+  STATUS_DONE,
+]
 
-export const data: Task[] = [
+export const data: ITask[] = [
   {
-    id: '1',
+    id: 'd34add7f-a788-40e6-b569-517ac744335a',
     title: 'Create a new component',
     description: 'Create a new component for the board',
     subTasks: [
@@ -37,7 +41,7 @@ export const data: Task[] = [
     status: STATUS_OPEN,
   },
   {
-    id: '2',
+    id: '277901d0-19da-4b38-b47a-d445376d1761',
     title: 'Fix bug on mobile',
     description: 'Fix bug on mobile',
     subTasks: [
@@ -55,7 +59,7 @@ export const data: Task[] = [
     status: STATUS_OPEN,
   },
   {
-    id: '3',
+    id: '05340a33-dc78-4677-a1f3-7f8e48380c57',
     title: 'Learn React',
     description: 'Learn React',
     subTasks: [
@@ -80,10 +84,28 @@ export const data: Task[] = [
         completed: false,
       },
     ],
-    status: STATUS_IN_PROGRESS,
+    status: STATUS_OPEN,
   },
   {
-    id: '4',
+    id: '4d933e15-44c5-4a18-b3b0-9ebacfba09ac',
+    title: 'Learn Vue',
+    description: 'Learn Vue',
+    subTasks: [
+      {
+        id: '1',
+        name: 'Learn JavaScript',
+        completed: true,
+      },
+      {
+        id: '2',
+        name: 'Learn Vue',
+        completed: false,
+      },
+    ],
+    status: STATUS_OPEN,
+  },
+  {
+    id: '4d933e15-44c5-4a18-b3b0-9eba09ac',
     title: 'Learn Vue',
     description: 'Learn Vue',
     subTasks: [
@@ -99,5 +121,23 @@ export const data: Task[] = [
       },
     ],
     status: STATUS_DONE,
+  },
+  {
+    id: '4d933e159ebacfba09ac',
+    title: 'Learn Vue',
+    description: 'Learn Vue',
+    subTasks: [
+      {
+        id: '1',
+        name: 'Learn JavaScript',
+        completed: true,
+      },
+      {
+        id: '2',
+        name: 'Learn Vue',
+        completed: false,
+      },
+    ],
+    status: STATUS_IN_PROGRESS,
   },
 ]
