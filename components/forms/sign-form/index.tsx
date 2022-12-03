@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from '@mui/system'
 import { useForm } from 'react-hook-form'
+import { IFormInput } from '@interfaces'
+import { IApiError } from '@interfaces'
 
 import {
   Grid,
@@ -11,18 +13,12 @@ import {
   Stack,
   Typography,
   CssBaseline,
+  Alert,
 } from '@mui/material'
 
-export interface IInput {
-  label: string
-  type: string
-  name: string
-  required: boolean
-  placeholder: string
-}
 export type IProps = {
   title: string
-  inputs: IInput[]
+  inputs: IFormInput[]
   submitLabel: string
   link: {
     label: string
@@ -30,14 +26,15 @@ export type IProps = {
     text: string
   }
   onSubmit: (data: any) => void
+  apiError?: IApiError | null
 }
 
 export default function SignForm(props: IProps) {
-  const { title, inputs, link, onSubmit, submitLabel } = props
+  const { title, inputs, link, onSubmit, submitLabel, apiError } = props
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm()
 
@@ -57,9 +54,27 @@ export default function SignForm(props: IProps) {
             }}
           >
             <Grid container spacing={2} mb={2}>
+              {apiError && (
+                <Grid item xs={12}>
+                  <Alert severity="error">
+                    {apiError.message || 'Unknown error'}
+                  </Alert>
+                </Grid>
+              )}
+              <Grid item xs={12}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  align="center"
+                >
+                  All * fields are required
+                </Typography>
+              </Grid>
+
               {inputs.map((input) => (
                 <Grid key={input.name} item xs={12}>
                   <TextField
+                    error={!!errors[input.name]}
                     variant="outlined"
                     required={input.required}
                     fullWidth
@@ -67,18 +82,30 @@ export default function SignForm(props: IProps) {
                     label={input.label}
                     type={input.type}
                     autoComplete={input.name}
-                    {...register(input.name, { required: true })}
+                    {...register(input.name, {
+                      required: true,
+                      pattern: input.pattern ? input.pattern : undefined,
+                    })}
+                    helperText={
+                      errors[input.name]?.message || input?.helperText || null
+                    }
                   />
                 </Grid>
               ))}
             </Grid>
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button
+              disabled={Object.keys(errors).length > 0}
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
               {submitLabel}
             </Button>
           </form>
           <Box mt={5}>
             <Typography variant="body2" color="text.secondary" align="center">
-              {link.text}
+              {link.text + ' '}
               <Link href={link.href} variant="body2">
                 {link.label}
               </Link>

@@ -1,8 +1,9 @@
-import { IJwtPayload } from '@interfaces'
-import { setCookie, getCookie, setJwt, parseJwt } from '../utils'
+import { setJwt, parseJwt } from '../utils'
 import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '@context/user.context'
 import axios from 'axios'
+import { IApiError } from '@interfaces'
+import { AxiosError } from 'axios'
 
 interface ISignIn {
   email: string
@@ -11,9 +12,10 @@ interface ISignIn {
 
 const useAuth = () => {
   const { user, setUser } = useContext(UserContext)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<IApiError | null>(null)
 
-  async function signIn({ email, password }: ISignIn) {
+  async function signIn({ email, password }: ISignIn): Promise<void> {
+    setError(null)
     try {
       const { data } = await axios.post('http://localhost:3000/auth/signin', {
         email,
@@ -22,15 +24,19 @@ const useAuth = () => {
       const { accessToken } = data
       setJwt(accessToken)
       setUser(parseJwt(accessToken))
-    } catch (e) {
-      setError(e)
+    } catch (e: any) {
+      if (axios.isAxiosError(e)) {
+        const { response } = e
+        const { data } = response as any
+        setError(data)
+      }
     }
   }
 
   return {
     signIn,
     user,
-    error,
+    apiError: error,
   }
 }
 
